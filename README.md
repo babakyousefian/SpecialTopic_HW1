@@ -1,7 +1,3 @@
-# SpecialTopic_HW1
-
----
-
 Code Breakdown and Explanation:
 
 ## 1. Import Necessary Libraries
@@ -171,8 +167,6 @@ plot_tour(best_tour_2opt, tsp_cities, "Best Tour (2-opt)")
 - Visualizes the best tour.
 
 ---
----
----
 
 # TSP Optimization Using 2-opt Local Search
 
@@ -226,6 +220,172 @@ This project is a foundation for other TSP optimization techniques, such as:
 ---
 
 ---
+
+# TSP Solver with Metaheuristics in Python
+
+This project solves the **Traveling Salesman Problem (TSP)** using various metaheuristic algorithms on a dataset of 200 cities (`kroB200.txt`). Each city has a unique ID and 2D Euclidean coordinates.
+
+---
+
+## 🧩 Problem Description
+
+The Traveling Salesman Problem (TSP) asks:
+
+> Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?
+
+The input file `kroB200.txt` contains:
+- 200 cities
+- Each with ID, X and Y coordinates
+
+---
+
+## 🛠️ Environment Requirements
+
+- Python 3.8+
+- Libraries:
+  - `matplotlib`
+  - `numpy`
+  - `tqdm`
+
+Install dependencies via:
+
+```bash
+pip install matplotlib numpy tqdm
+📥 File Structure
+bash
+Copy
+Edit
+tsp_solver/
+│
+├── kroB200.txt              # TSP input file with 200 cities
+├── tsp_solver.py            # Main Python script (contains all algorithms)
+└── README.md                # This documentation
+🚀 Algorithms Implemented
+🔹 1. 2-opt Local Search
+Iteratively swaps two edges if the swap improves the total distance.
+
+Greedy hill climbing approach.
+
+python
+Copy
+Edit
+def local_search_2opt(tour, cities):
+    ...
+🔹 2. 3-opt Local Search (Limited)
+Similar to 2-opt but removes three edges at a time.
+
+Tries 8 reconnection patterns and keeps the best.
+
+Limited by execution time (max_time=60).
+
+python
+Copy
+Edit
+def local_search_3opt_limited(tour, cities, max_time=60):
+    ...
+🔹 3. Simulated Annealing (with 2-opt)
+Probabilistic algorithm.
+
+Accepts worse solutions with a probability based on a temperature function to escape local minima.
+
+Uses 2-opt as the neighbor operator.
+
+python
+Copy
+Edit
+def simulated_annealing(tour, cities, initial_temp=10000, cooling_rate=0.995, ...):
+    ...
+🔹 4. Simulated Annealing with 3-opt
+Same as above but explores neighborhoods using 3-opt swaps instead.
+
+python
+Copy
+Edit
+def simulated_annealing_3opt(tour, cities, ...):
+    ...
+🔹 5. VNS (Variable Neighborhood Search)
+Systematically changes neighborhood structures (2-opt and 3-opt).
+
+If improvement is found, resets to the first neighborhood.
+
+Stops when no improvements found in all neighborhoods or time is up.
+
+python
+Copy
+Edit
+def vns(tour, cities, max_iter=10, max_time=60):
+    ...
+🔹 6. GRASP (Greedy Randomized Adaptive Search Procedure)
+Builds a solution using a greedy + randomized approach.
+
+Then improves it using local search (2-opt).
+
+alpha controls how greedy or random the initial construction is.
+
+python
+Copy
+Edit
+def grasp(cities, max_iter=10, alpha=0.2):
+    ...
+📈 Visualization
+All tours are plotted using matplotlib with cities connected in visiting order.
+
+python
+Copy
+Edit
+def plot_tour(tour, cities, title):
+    ...
+✅ How to Run
+In tsp_solver.py:
+
+bash
+Copy
+Edit
+python tsp_solver.py
+You’ll see outputs like:
+
+python-repl
+Copy
+Edit
+Running 2-opt...
+Best Distance (2-opt): 24235.21
+...
+And tour plots will be displayed.
+
+📊 Sample Output Format
+java
+Copy
+Edit
+Best Distance (2-opt): 24235.21
+Best Distance (3-opt): 23814.99
+Best Distance (SA 2-opt): 24112.88
+Best Distance (SA 3-opt): 23778.53
+Best Distance (VNS): 23621.11
+Best Distance (GRASP): 23790.02
+Each line corresponds to the result of one algorithm.
+
+💡 Tips
+Tune hyperparameters like:
+
+alpha in GRASP
+
+cooling_rate, initial_temp in SA
+
+max_iter, max_time in VNS and GRASP
+
+Run each algorithm multiple times and take the best result.
+
+📚 References
+2-opt and 3-opt heuristics for TSP
+
+Simulated Annealing: Kirkpatrick et al. (1983)
+
+GRASP: Feo and Resende (1995)
+
+VNS: Mladenović and Hansen (1997)
+```
+🧑‍💻 Author
+Your Name (babak yousefian)
 
 ### Author : babak yousefian
 
